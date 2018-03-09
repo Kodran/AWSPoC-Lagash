@@ -351,26 +351,52 @@
          
         <script type="text/javascript">
             $(document).ready(function () {
-                
+                $.ajaxSetup ({                            
+                    cache: false
+                });
                 var awspoc = {
                     init: function(){
-                        
+                       
                         $('#sidebarCollapse').on('click', function () {
                             $('#sidebar').toggleClass('active');
                         });
 
                         $('.register-button').click(function(){
-                            $('.main-content').load( "/register");
+                            $('.main-content').load( "/register?v=" + Math.random());                            
                         })
                         
-                        $('.users-button').click(function(){
-                            $('.main-content').load( "/user");
+                        $('.users-button').click(function(){                            
+                            $('.main-content').load( "/user?v=" + Math.random());                           
                         })
-                        
                     }
                 }
 
                 awspoc.init();
+            });
+        </script>
+        
+        <script type="text/javascript">
+            var globalUsers = [];
+            $(document).ready(function () {
+                
+                var user = {
+                    init: function(){
+                        this.getUsers();
+                    },
+                    getUsers: function(){
+                        $.ajax({
+                        url: "http://localhost:3000/api/user",
+                        type: 'GET',
+                        dataType: 'json', // added data type
+                        success: function(res) {
+                            console.log(res);
+                            globalUsers= res.Items;
+                        }
+                    });
+                    }
+                }
+
+                user.init();
             });
         </script>
     </body>

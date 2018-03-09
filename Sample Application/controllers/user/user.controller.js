@@ -19,10 +19,15 @@ exports.register = function(req,res){
     
     console.log('POST - /api/user/register');    
     console.log(apigatewayconfig.apiGatewayEndpoints.registerUserEndpoint);
-
+    var userRegistration = {
+        "firstName": "jorge",
+        "lastName": "castro",
+        "email": "jorge.castro.au@gmail.com",
+        "country": "United States"
+    };
     request.post({
             url: apigatewayconfig.apiGatewayEndpoints.registerUserEndpoint, 
-            form:{}
+            form: JSON.stringify(userRegistration)
         }, function(error, response, body){            
         
             console.log("error: ", error);

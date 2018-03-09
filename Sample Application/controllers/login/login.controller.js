@@ -8,10 +8,10 @@ exports.logIn = function(req, res){
     
     console.log('POST - /api/login');    
     console.log(apigatewayconfig.apiGatewayEndpoints.loginEndpoint);
-
+   
     request.post({
         url: apigatewayconfig.apiGatewayEndpoints.loginEndpoint, 
-        form:{}
+        form: {}
     }, function(error, response, body){            
     
         console.log("error: ", error);

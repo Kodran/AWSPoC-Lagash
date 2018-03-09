@@ -113,21 +113,21 @@
                         type: 'POST',
                         data: userData,
                         dataType: 'json', // added data type
-                        success: function(res) {
-                            console.log(res);
-                            if (res.errorMessage) {
-                                //TODO: show error message
-                            }
-                            else {
-                                localStorage.setItem("login", JSON.stringify(res));
-                                window.location.href = '/';
-                            }
-                        },
+                         success: function(res) {
+-                            alert("Sign in success!")
+                             console.log(res);
++                            if (res.errorMessage) {
++                                //TODO: show error message
++                            }
++                            else {
++                                localStorage.setItem("login", JSON.stringify(res));
++                                window.location.href = '/';
++                            }
+                         },
                         error: function(XMLHttpRequest, textStatus, error) {
                             console.log(XMLHttpRequest.statusText);
                             console.log(textStatus);
                             console.log(error);
-
                         }
                     });
                 }

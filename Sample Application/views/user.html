@@ -31,27 +31,6 @@
 </div>
 
 <script>    
-    var usersHTMLTemplate = "";
-    usersHTMLTemplate = '<div class="col-xs-12 col-md-4 col-lg-4 col-12 user-container">' +
-        '<div class="name">' +
-            '<label>'+globalUsers[0].UserData.firstName+' '+globalUsers[0].UserData.lastName+'</label>' +
-        '</div>' +
-        '<br />' +
-        '<div class="col-xs-12 col-md-12 col-lg-12">' +
-            '<label>Email</label>' +
-            '<p>'+globalUsers[0].Email+'</p>' +
-        '</div>' +
-        '<div class="col-xs-12 col-md-12 col-lg-12">' +
-            '<label>Country</label>' +
-            '<p>'+globalUsers[0].UserData.country+'</p>' +
-        '</div>' +
-    '</div>';
-    
-    $('.wrapper-user-container').html(usersHTMLTemplate);
-    
-    globalUsers.forEach(function(user) { 
-        console.log(usersHTMLTemplate);        
-    }
+  
 
-);
 </script>

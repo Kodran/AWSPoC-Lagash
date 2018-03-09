@@ -41,3 +41,36 @@
 
     <div class="line"></div>
 </div>
+
+<script type="text/javascript">
+    var globalUsers = [];
+
+    $(document).ready(function () {
+        
+        var user = {
+            init: function(){
+                $('#sidebarCollapse').on('click', function () {
+                    $('#sidebar').toggleClass('active');
+                });
+                
+                this.registerUser(userData);
+            },
+            registerUser: function(userData){
+
+                $.ajax({
+                    url: "http://localhost:3000/api/user",
+                    type: 'POST',
+                    data: userData,
+                    dataType: 'json', // added data type
+                    success: function(res) {
+                        console.log(res);
+                        globalUsers= res.Items;
+                    }
+                });
+            }
+        }
+
+        user.init();
+    });
+
+</script>

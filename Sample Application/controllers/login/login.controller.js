@@ -1,11 +1,23 @@
 'use strict';
 
-const validate = require('./validateLogin.js');
+const validate = require('./validateLogin.js'),
+      request = require('request'),
+      apigatewayconfig = require('../../aws/apigateway.config.js');
 
 exports.logIn = function(req, res){
-    console.log('POST - /api/login');
-    console.log(req);
-    res.send("login api");
+    
+    console.log('POST - /api/login');    
+    console.log(apigatewayconfig.apiGatewayEndpoints.loginEndpoint);
+
+    request.post({
+        url: apigatewayconfig.apiGatewayEndpoints.loginEndpoint, 
+        form:{}
+    }, function(error, response, body){            
+    
+        console.log("error: ", error);
+        console.log("body: ", body);
+        res.send(body);
+    });
 }
 
 exports.logOut = function(req, res){

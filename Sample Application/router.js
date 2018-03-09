@@ -27,9 +27,9 @@ module.exports = function(app){
 	})
 
 	//API section
+	app.get('/api/user',controller.user.users);
 	app.post('/api/login',  controller.login.logIn),
 	app.post('/api/logout', controller.login.logOut),
-	app.get('/api/user',controller.user.users);
 	app.post('/api/user/register',controller.user.register);
 };
 

@@ -19,12 +19,8 @@ exports.register = function(req,res){
     
     console.log('POST - /api/user/register');    
     console.log(apigatewayconfig.apiGatewayEndpoints.registerUserEndpoint);
-    var userRegistration = {
-        "firstName": "jorge",
-        "lastName": "castro",
-        "email": "jorge.castro.au@gmail.com",
-        "country": "United States"
-    };
+    var userRegistration = req.body;
+    console.log(req.body);
     request.post({
             url: apigatewayconfig.apiGatewayEndpoints.registerUserEndpoint, 
             form: JSON.stringify(userRegistration)

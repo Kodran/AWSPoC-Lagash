@@ -368,27 +368,27 @@
                         $('.users-button').click(function(){                            
                             $('.main-content').load( "/user?v=" + Math.random(), function(){
 
-                                    var usersHTMLTemplate = "";
-                                    usersHTMLTemplate = '<div class="col-xs-12 col-md-4 col-lg-4 col-12 user-container">' +
-                                        '<div class="name">' +
-                                            '<label>'+globalUsers[0].UserData.firstName+' '+globalUsers[0].UserData.lastName+'</label>' +
-                                        '</div>' +
-                                        '<br />' +
-                                        '<div class="col-xs-12 col-md-12 col-lg-12">' +
-                                            '<label>Email</label>' +
-                                            '<p>'+globalUsers[0].Email+'</p>' +
-                                        '</div>' +
-                                        '<div class="col-xs-12 col-md-12 col-lg-12">' +
-                                            '<label>Country</label>' +
-                                            '<p>'+globalUsers[0].UserData.country+'</p>' +
-                                        '</div>' +
-                                    '</div>';
-                                    
-                                    $('.wrapper-user-container').html(usersHTMLTemplate);
+                                    var usersHTMLTemplate = "";                                                                        
                                     
                                     globalUsers.forEach(function(user) { 
-                                        console.log(usersHTMLTemplate);        
+                                            
+                                        usersHTMLTemplate += '<div class="col-xs-12 col-md-4 col-lg-4 col-12 user-container">' +
+                                            '<div class="name">' +
+                                                '<label>'+user.UserData.firstName+' '+user.UserData.lastName+'</label>' +
+                                            '</div>' +
+                                            '<br />' +
+                                            '<div class="col-xs-12 col-md-12 col-lg-12">' +
+                                                '<label>Email</label>' +
+                                                '<p>'+user.Email+'</p>' +
+                                            '</div>' +
+                                            '<div class="col-xs-12 col-md-12 col-lg-12">' +
+                                                '<label>Country</label>' +
+                                                '<p>'+user.UserData.country+'</p>' +
+                                            '</div>' +
+                                        '</div>';
                                     })
+                                    
+                                    $('.wrapper-user-container').html(usersHTMLTemplate);
                             });                           
                             
                         })
@@ -409,14 +409,14 @@
                     },
                     getUsers: function(){
                         $.ajax({
-                        url: "http://localhost:3000/api/user",
-                        type: 'GET',
-                        dataType: 'json', // added data type
-                        success: function(res) {
-                            console.log(res);
-                            globalUsers= res.Items;
-                        }
-                    });
+                            url: "http://localhost:3000/api/user",
+                            type: 'GET',
+                            dataType: 'json', // added data type
+                            success: function(res) {
+                                console.log(res);
+                                globalUsers= res.Items;
+                            }
+                        });
                     }
                 }
 

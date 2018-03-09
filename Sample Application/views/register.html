@@ -22,11 +22,15 @@
         </div>
         <div class="col-xs-12 col-md-12 col-lg-12 block">
             <label>Email</label>
-            <input id="EmailTxt" class="form-control" placeholder="type your name here..." />
+            <input id="EmailTxt" class="form-control" placeholder="type your email here..." />
         </div>
         <div class="col-xs-12 col-md-12 col-lg-12 block">
+                <label>Password</label>
+                <input id="PasswordTxt" class="form-control" placeholder="type your password..." />
+            </div>
+        <div class="col-xs-12 col-md-12 col-lg-12 block">
             <label>Country</label>
-            <select id="CountryTxt"  class="form-control" placeholder="type your name here..." >
+            <select id="Country"  class="form-control" >
                 <option id="us">United States</option>
                 <option id="mx">México</option>
                 <option id="it">Italy</option>
@@ -52,19 +56,30 @@
                 $('#sidebarCollapse').on('click', function () {
                     $('#sidebar').toggleClass('active');
                 });
-                
-                this.registerUser(userData);
+
+                $('#RegisterButton').on('click', function () {
+
+                    var userData = {
+                        firstName: $('#FirstNameTxt').val(),
+                        lastName:$('#LastNameTxt').val(),
+                        email:$('#EmailTxt').val(),
+                        password:$('#PasswordTxt').val(),
+                        country:$('#Country').val()
+                    };
+                    console.log(userData);
+                    user.registerUser(userData);
+                });
+               
             },
             registerUser: function(userData){
 
                 $.ajax({
-                    url: "http://localhost:3000/api/user",
+                    url: "http://localhost:3000/api/user/register",
                     type: 'POST',
                     data: userData,
                     dataType: 'json', // added data type
                     success: function(res) {
                         console.log(res);
-                        globalUsers= res.Items;
                     }
                 });
             }

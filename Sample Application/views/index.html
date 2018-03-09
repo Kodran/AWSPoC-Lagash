@@ -351,7 +351,7 @@
          
         <script type="text/javascript">
             $(document).ready(function () {
-                var login = sessionStorage.getItem("login");
+                var login = localStorage.getItem("login");
                 if (login)
                     login = JSON.parse(login);
                 else {

@@ -114,13 +114,20 @@
                         data: userData,
                         dataType: 'json', // added data type
                         success: function(res) {
-                            alert("User registration completed!")
                             console.log(res);
+                            if (res.errorMessage) {
+                                //TODO: show error message
+                            }
+                            else {
+                                localStorage.setItem("login", JSON.stringify(res));
+                                window.location.href = '/';
+                            }
                         },
                         error: function(XMLHttpRequest, textStatus, error) {
                             console.log(XMLHttpRequest.statusText);
                             console.log(textStatus);
                             console.log(error);
+
                         }
                     });
                 }

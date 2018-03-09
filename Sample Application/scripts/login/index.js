@@ -17,7 +17,14 @@ Amplify.default.configure({
 });
 const Auth = Amplify.Auth;
 
-exports.handler = function(event, context) {
-    // TODO implement
-    context.done(null, 'Hello from Lambda');
+exports.handler = function(event, context, callback) {
+    Auth.signIn(event.username, event.password)
+        .then(user => {
+            console.log(user);
+            callback(null, user);
+        })
+        .catch(err => {
+            console.log(err);
+            callback(err, null);
+        });
 };

@@ -327,7 +327,7 @@
 
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a href="#">Jorge Castro</a></li>
+                                <li><a id="profileLink" href="#">User</a></li>
                             </ul>
                         </div>
                     </div>
@@ -351,12 +351,18 @@
          
         <script type="text/javascript">
             $(document).ready(function () {
+                var login = sessionStorage.getItem("login");
+                if (login)
+                    login = JSON.parse(login);
+                else {
+                    window.location.href = '/login';
+                }
                 $.ajaxSetup ({                            
                     cache: false
                 });
                 var awspoc = {
                     init: function(){
-                       
+                       $("#profileLink").text(login.username);
                         $('#sidebarCollapse').on('click', function () {
                             $('#sidebar').toggleClass('active');
                         });

@@ -114,15 +114,14 @@
                         data: userData,
                         dataType: 'json', // added data type
                          success: function(res) {
--                            alert("Sign in success!")
-                             console.log(res);
-+                            if (res.errorMessage) {
-+                                //TODO: show error message
-+                            }
-+                            else {
-+                                localStorage.setItem("login", JSON.stringify(res));
-+                                window.location.href = '/';
-+                            }
+                            console.log(res);
+                            if (res.errorMessage) {
+                                alert(res.errorMessage);
+                            }
+                            else {
+                                localStorage.setItem("login", JSON.stringify(res));
+                                window.location.href = '/';
+                            }
                          },
                         error: function(XMLHttpRequest, textStatus, error) {
                             console.log(XMLHttpRequest.statusText);

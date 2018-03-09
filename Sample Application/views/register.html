@@ -1,1 +1,43 @@
-register
+<div class="row">
+    <div class="col-xs-12 col-md-2 col-lg-2 col-12 block">            
+        <a style="padding:10px; font-size:18px; color:blue; text-decoration:underline;" href="./">Back</a>
+    </div>
+</div>
+
+ <!-- Page Content Holder -->
+ <div id="content" style="padding-top:5px !important;" class="main-content">
+    <h2>Register new user</h2>
+    <br />
+    <p>Fill all the fields below to register a new user.</p>
+    <p>All the fields are required.</p>
+
+    <div class="row">
+        <div class="col-xs-12 col-md-12 col-lg-12 block">
+            <label>First name</label>
+            <input id="FirstNameTxt" class="form-control" placeholder="type your name here..." />
+        </div>
+        <div class="col-xs-12 col-md-12 col-lg-12 block">
+            <label>Last name</label>
+            <input id="LastNameTxt" class="form-control" placeholder="type your last name here..." />
+        </div>
+        <div class="col-xs-12 col-md-12 col-lg-12 block">
+            <label>Email</label>
+            <input id="EmailTxt" class="form-control" placeholder="type your name here..." />
+        </div>
+        <div class="col-xs-12 col-md-12 col-lg-12 block">
+            <label>Country</label>
+            <select id="CountryTxt"  class="form-control" placeholder="type your name here..." >
+                <option id="us">United States</option>
+                <option id="mx">México</option>
+                <option id="it">Italy</option>
+            </select>
+        </div>            
+    </div>    
+    <div class="row">
+        <div class="col-xs-12 col-md-4 col-lg-4 col-12 block">            
+            <button id="RegisterButton" class="btn btn-primary form-control">Register user</button>
+        </div>
+    </div>
+
+    <div class="line"></div>
+</div>

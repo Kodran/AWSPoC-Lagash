@@ -6,8 +6,8 @@ const
     cors     	= require('cors'),
     body_parser = require('body-parser'),
     app 	 	= express(),
-    // port      = process.env.PORT || 3001,
-    port      = 3001,
+    port      = process.env.PORT || 3000,
+    // port      = 3000,
     local     = '127.0.0.1',
     url_encoder = body_parser.urlencoded({ extended: false });
 

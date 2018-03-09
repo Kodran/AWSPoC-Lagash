@@ -1,93 +1,377 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Elastic Beanstalk</title>
-    <style>
-      body {
-        color: #ffffff;
-        font-family: Arial, sans-serif;
-        font-size:14px;
-        -moz-transition-property: text-shadow;
-        -moz-transition-duration: 4s;
-        -webkit-transition-property: text-shadow;
-        -webkit-transition-duration: 4s;
-        text-shadow: none;
-      }
-      body.blurry {
-        -moz-transition-property: text-shadow;
-        -moz-transition-duration: 4s;
-        -webkit-transition-property: text-shadow;
-        -webkit-transition-duration: 4s;
-        text-shadow: #fff 0px 0px 25px;
-      }
-      a {
-        color: #55aaff;
-      }
-      .textColumn, .linksColumn {
-        padding: 2em;
-      }
-      .textColumn {
-        position: absolute;
-        top: 0px;
-        right: 50%;
-        bottom: 0px;
-        left: 0px;
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        text-align: right;
-        padding-top: 11em;
-        background-color: #73A53E;
+        <title>Collapsible sidebar using Bootstrap 3</title>
 
-      }
-      .textColumn p {
-        width: 75%;
-        float:right;
-      }
-      .linksColumn {
-        position: absolute;
-        top:0px;
-        right: 0px;
-        bottom: 0px;
-        left: 50%;
+         <!-- Bootstrap CSS CDN -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+         
+        <style>
+        /*
+        DEMO STYLE
+        */
+        @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
-        background-color: #33342D;
-      }
 
-      h1 {
-        color: #33342D;
-        font-size: 500%;
-        font-weight: normal;
-        margin-bottom: 0em;
-      }
-      h2 {
-        font-size: 200%;
-        font-weight: normal;
-        margin-bottom: 0em;
-      }
-      ul {
-        padding-left: 1em;
-        margin: 0px;
-      }
-      li {
-        margin: 1em 0em;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="textColumn">
-      <h1>Congratulations</h1>
-      <p>Your first AWS Elastic Beanstalk Node.js application is now running on your own dedicated environment in the AWS Cloud</p>
-    </div>
-    <div class="linksColumn">
-      <h2>What's Next?</h2>
-      <ul>
-        <li><a href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html">AWS Elastic Beanstalk overview</a></li>
-        <li><a href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts.html">AWS Elastic Beanstalk concepts</a></li>
-        <li><a href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_nodejs_express.html">Deploy an Express Application to AWS Elastic Beanstalk</a></li>
-        <li><a href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_nodejs_express_elasticache.html">Deploy an Express Application with Amazon ElastiCache to AWS Elastic Beanstalk</a></li>
-        <li><a href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_nodejs_geddy_elasticache.html">Deploy a Geddy Application with Amazon ElastiCache to AWS Elastic Beanstalk </a></li>
-        <li><a href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_nodejs_custom_container.html">Customizing and Configuring a Node.js Container </a></li>
-        <li><a href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.loggingS3.title.html">Working with Logs</a></li>
-      </ul>
-    </div>
-  </body>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #fafafa;
+        }
+        .block{
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1em;
+            font-weight: 300;
+            line-height: 1.7em;
+            color: #999;
+        }
+
+        a, a:hover, a:focus {
+            color: inherit;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        h1,h2,h3,h4,h5,h6 {
+            font-weight: lighter;
+        }
+        .navbar {
+            padding: 5px 2.5px;
+            background: #fff;
+            border: none;
+            border-radius: 0;
+            margin-bottom: 40px;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-btn {
+            box-shadow: none;
+            outline: none !important;
+            border: none;
+        }
+
+        .line {
+            width: 100%;
+            height: 1px;
+            border-bottom: 1px dashed #ddd;
+            margin: 40px 0;
+        }
+
+        i, span {
+            display: inline-block;
+        }
+
+        /* ---------------------------------------------------
+            SIDEBAR STYLE
+        ----------------------------------------------------- */
+        .wrapper {
+            display: flex;
+            align-items: stretch;
+            width: 100%;
+        }
+
+        #sidebar {
+            min-width: 250px;
+            max-width: 250px;
+            background: #7386D5;
+            color: #fff;
+            transition: all 0.3s;
+        }
+
+        #sidebar.active {
+            min-width: 80px;
+            max-width: 80px;
+            text-align: center;
+        }
+
+        #sidebar.active .sidebar-header h3, #sidebar.active .CTAs {
+            display: none;
+        }
+
+        #sidebar.active .sidebar-header strong {
+            display: block;
+        }
+
+        #sidebar ul li a {
+            text-align: left;
+        }
+
+        #sidebar.active ul li a {
+            padding: 20px 10px;
+            text-align: center;
+            font-size: 0.85em;
+        }
+
+        #sidebar.active ul li a i {
+            margin-right:  0;
+            display: block;
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+
+        #sidebar.active ul ul a {
+            padding: 10px !important;
+        }
+
+        #sidebar.active a[aria-expanded="false"]::before, #sidebar.active a[aria-expanded="true"]::before {
+            top: auto;
+            bottom: 5px;
+            right: 50%;
+            -webkit-transform: translateX(50%);
+            -ms-transform: translateX(50%);
+            transform: translateX(50%);
+        }
+
+        #sidebar .sidebar-header {
+            padding: 20px;
+            background: #6d7fcc;
+        }
+
+        #sidebar .sidebar-header strong {
+            display: none;
+            font-size: 1.8em;
+        }
+
+        #sidebar ul.components {
+            padding: 20px 0;
+            
+        }
+
+        #sidebar ul li a {
+            padding: 20px;
+            font-size: 1.1em;
+            display: block;
+        }
+        #sidebar ul li a:hover {
+            color: #7386D5;
+            background: #fff;
+        }
+        #sidebar ul li a i {
+            margin-right: 10px;
+        }
+
+        #sidebar ul li.active > a, a[aria-expanded="true"] {
+            color: #fff;
+            background: #6d7fcc;
+        }
+
+
+        a[data-toggle="collapse"] {
+            position: relative;
+        }
+
+        a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
+            content: '\e259';
+            display: block;
+            position: absolute;
+            right: 20px;
+            font-family: 'Glyphicons Halflings';
+            font-size: 0.6em;
+        }
+        a[aria-expanded="true"]::before {
+            content: '\e260';
+        }
+
+
+        ul ul a {
+            font-size: 0.9em !important;
+            padding-left: 30px !important;
+            background: #6d7fcc;
+        }
+
+        ul.CTAs {
+            padding: 20px;
+        }
+
+        ul.CTAs a {
+            text-align: center;
+            font-size: 0.9em !important;
+            display: block;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        a.download {
+            background: #fff;
+            color: #7386D5;
+        }
+
+        a.article, a.article:hover {
+            background: #6d7fcc !important;
+            color: #fff !important;
+        }
+
+
+
+        /* ---------------------------------------------------
+            CONTENT STYLE
+        ----------------------------------------------------- */
+        #content {
+            padding: 20px;
+            min-height: 100vh;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+
+            /* ---------------------------------------------------
+                MEDIAQUERIES
+            ----------------------------------------------------- */
+            @media (max-width: 768px) {
+                #sidebar {
+                    min-width: 80px;
+                    max-width: 80px;
+                    text-align: center;
+                    margin-left: -80px !important ;
+                }
+                a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
+                    top: auto;
+                    bottom: 5px;
+                    right: 50%;
+                    -webkit-transform: translateX(50%);
+                    -ms-transform: translateX(50%);
+                    transform: translateX(50%);
+                }
+                #sidebar.active {
+                    margin-left: 0 !important;
+                }
+
+                #sidebar .sidebar-header h3, #sidebar .CTAs {
+                    display: none;
+                }
+
+                #sidebar .sidebar-header strong {
+                    display: block;
+                }
+
+                #sidebar ul li a {
+                    padding: 20px 10px;
+                }
+
+                #sidebar ul li a span {
+                    font-size: 0.85em;
+                }
+                #sidebar ul li a i {
+                    margin-right:  0;
+                    display: block;
+                }
+
+                #sidebar ul ul a {
+                    padding: 10px !important;
+                }
+
+                #sidebar ul li a i {
+                    font-size: 1.3em;
+                }
+                #sidebar {
+                    margin-left: 0;
+                }
+                #sidebarCollapse span {
+                    display: none;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <!-- Sidebar Holder -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>AWS PoC</h3>
+                    <strong>AW</strong>
+                </div>
+
+                <ul class="list-unstyled components">
+                    <li class="active">
+                        <a href="./">
+                            <i class="glyphicon glyphicon-home"></i>
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">
+                            <i class="glyphicon glyphicon-user"></i>
+                            User
+                        </a>
+                        <ul class="collapse list-unstyled" id="pageSubmenu">                            
+                            <li><a class="register-button" href="#">Register user</a></li>
+                            <li><a class="users-button" href="#">Registered users</a></li>
+                        </ul>                        
+                    </li>
+                    <li>
+                        <a href="/login">
+                            <i class="glyphicon glyphicon-link"></i>
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Page Content Holder -->
+            <div id="content">
+
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+
+                        <div class="navbar-header">
+                            <button type="button" id="sidebarCollapse" class="btn btn-default navbar-btn">
+                                <i class="glyphicon glyphicon-menu-hamburger" style="font-size:25px;"></i>
+                            </button>
+                        </div>
+
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="#">Jorge Castro</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <div class="main-content">
+                    <h2>Welcome to AWS PoC</h2>
+                    <br />
+                    <p>To start using this application, please click on the link below to register an user</p>
+                    <a style="display:block; cursor:pointer; font-size:16px;" class="register-button block" href="#">Register user</a>                    
+                    <a style="display:block; cursor:pointer; font-size:16px;" class="users-button block" href="#">List of users</a>
+                    <div class="line"></div>
+                </div>                
+
+            </div>
+        </div>
+
+        <!-- jQuery CDN -->
+        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+        <!-- Bootstrap Js CDN -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+         
+        <script type="text/javascript">
+            $(document).ready(function () {
+                
+                var awspoc = {
+                    init: function(){
+                        
+                        $('#sidebarCollapse').on('click', function () {
+                            $('#sidebar').toggleClass('active');
+                        });
+
+                        $('.register-button').click(function(){
+                            $('.main-content').load( "/register");
+                        })
+                        
+                        $('.users-button').click(function(){
+                            $('.main-content').load( "/user");
+                        })
+                        
+                    }
+                }
+
+                awspoc.init();
+            });
+        </script>
+    </body>
 </html>
